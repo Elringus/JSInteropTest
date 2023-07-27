@@ -7,7 +7,7 @@
         <WasmMainJSPath>main.js</WasmMainJSPath>
         <InvariantGlobalization>true</InvariantGlobalization>
         <InvariantTimezone>true</InvariantTimezone>
-<!--        <RunAOTCompilation>true</RunAOTCompilation>-->
+        <!--<RunAOTCompilation>true</RunAOTCompilation>-->
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -15,5 +15,9 @@
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>bin/codegen</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
+
+    <ItemGroup>
+        <WasmExtraFilesToDeploy Include="index.html"/>
+    </ItemGroup>
 
 </Project>
