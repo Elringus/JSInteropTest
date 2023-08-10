@@ -1,54 +1,58 @@
-import { dotnet } from "./dotnet.js";
+import { dotnet } from "./_framework/dotnet.js";
 
 (async function () {
     const config = {
         mainAssemblyName: "Test.dll",
-        assemblyRootFolder: "managed",
         assets: [
             {
-                behavior: "dotnetwasm",
-                buffer: await fetchBinary("dotnet.native.wasm"),
-                name: "dotnet.native.wasm"
+                name: "dotnet.js",
+                // buffer: await fetchBinary("dotnet.js"),
+                behavior: "js-module-dotnet"
             },
             {
-                behavior: "js-module-native",
+                name: "dotnet.native.js",
                 // buffer: await fetchBinary("dotnet.native.js"),
-                name: "dotnet.native.js"
+                behavior: "js-module-native"
             },
             {
-                behavior: "js-module-runtime",
+                name: "dotnet.runtime.js",
                 // buffer: await fetchBinary("dotnet.runtime.js"),
-                name: "dotnet.runtime.js"
+                behavior: "js-module-runtime"
             },
             {
-                behavior: "assembly",
-                buffer: await fetchBinary("System.Console.wasm"),
-                name: "System.Console.wasm"
+                name: "dotnet.native.wasm",
+                // buffer: await fetchBinary("dotnet.native.wasm"),
+                behavior: "dotnetwasm"
             },
             {
-                behavior: "assembly",
-                buffer: await fetchBinary("System.Linq.wasm"),
-                name: "System.Linq.wasm"
+                name: "System.Private.CoreLib.wasm",
+                // buffer: await fetchBinary("System.Private.CoreLib.wasm"),
+                behavior: "assembly"
             },
             {
-                behavior: "assembly",
-                buffer: await fetchBinary("System.Private.CoreLib.wasm"),
-                name: "System.Private.CoreLib.wasm"
+                name: "System.Runtime.InteropServices.JavaScript.wasm",
+                // buffer: await fetchBinary("System.Runtime.InteropServices.JavaScript.wasm"),
+                behavior: "assembly"
             },
             {
-                behavior: "assembly",
-                buffer: await fetchBinary("System.Runtime.InteropServices.JavaScript.wasm"),
-                name: "System.Runtime.InteropServices.JavaScript.wasm"
+                name: "System.Console.wasm",
+                // buffer: await fetchBinary("System.Console.wasm"),
+                behavior: "assembly"
             },
             {
-                behavior: "assembly",
-                buffer: await fetchBinary("Test.wasm"),
-                name: "Test.wasm"
+                name: "System.Linq.wasm",
+                // buffer: await fetchBinary("System.Linq.wasm"),
+                behavior: "assembly"
+            },
+            {
+                name: "Test.wasm",
+                // buffer: await fetchBinary("Test.wasm"),
+                behavior: "assembly"
             }
         ],
-        remoteSources: [],
         globalizationMode: "invariant"
     };
+
     const runtime = await dotnet.withConfig(config).create();
 
     // setModuleImports("moduleIdCanBeAnything", {
@@ -74,6 +78,6 @@ import { dotnet } from "./dotnet.js";
 })();
 
 async function fetchBinary(name) {
-    const uri = `./managed/${name}`;
+    const uri = `./_framework/${name}`;
     return new Uint8Array(await (await fetch(uri)).arrayBuffer());
 }
