@@ -2,8 +2,7 @@
 1. Install latest .NET SDK:
    - https://dotnet.microsoft.com/en-us/download/dotnet/scripts
    - `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
-   - `./dotnet-install.ps1 -Channel 8.0.1xx -Quality daily`
-   - set `Path` system var to `%AppData%\Local\Microsoft\dotnet\`
+   - `./dotnet-install.ps1 -Channel 8.0.1xx -Quality daily -InstallDir "C:/Program Files/dotnet"`
 2. Add workload manifest to `nuget.config`:
    - `<add key="dotnet8" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet8/nuget/v3/index.json"/>`
 3. Restore workload with `dotnet workload restore`
