@@ -2,7 +2,19 @@
 <html lang="en">
 <head>
     <title>JS Interop Test</title>
-    <script type="module" src="main.js"></script>
 </head>
 <body>check console</body>
+<script type="module">
+    import { boot } from "./bootsharp.js"
+
+    (async function () {
+        console.log("Started in index.html.");
+        const exports = await boot();
+        console.log("Booted in index.html.");
+        console.log(exports.Program.SumNumbers());
+        console.log(await exports.Program.SumNumbersAsync(1, 9));
+        console.log(await exports.Program.EchoAsync());
+        console.log("Completed in index.html.");
+    })();
+</script>
 </html>

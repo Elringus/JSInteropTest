@@ -7,7 +7,7 @@ import { dotnet } from "./_framework/dotnet.js";
 export async function boot() {
     /** @type {import("dotnet").MonoConfig & { assets: import("dotnet").AssetEntry[] }} */
     const config = {
-        mainAssemblyName: "Test.dll",
+        mainAssemblyName: "JSInteropTest.dll",
         assets: [
             {
                 name: "dotnet.runtime.js",
@@ -45,8 +45,8 @@ export async function boot() {
                 behavior: "assembly"
             },
             {
-                name: "Test.wasm",
-                buffer: await fetchBin("Test.wasm"),
+                name: "JSInteropTest.wasm",
+                buffer: await fetchBin("JSInteropTest.wasm"),
                 behavior: "assembly"
             }
         ]

@@ -13,6 +13,7 @@
         <!--<RunAOTCompilation>true</RunAOTCompilation>-->
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>bin/codegen</CompilerGeneratedFilesOutputPath>
+        <BootsharpVersion>0.0.1</BootsharpVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,17 +21,9 @@
     </ItemGroup>
 
     <Target Name="BuildBootsharp" AfterTargets="_AfterWasmBuildApp">
-        <Exec Command="npm ci" Condition="'$(ContinuousIntegrationBuild)' == 'true'" WorkingDirectory="$(WasmAppDir)/"/>
-        <Exec Command="npm install" Condition="'$(ContinuousIntegrationBuild)' != 'true'" WorkingDirectory="$(WasmAppDir)/"/>
-        <Exec Command="npm run rollup -- --environment $(MonoRollupEnvironment)" WorkingDirectory="$(WasmAppDir)/"/>
-        <!--        <Copy SourceFiles="runtime/package.json;"-->
-        <!--              DestinationFolder="$(NativeBinDir)"-->
-        <!--              SkipUnchangedFiles="true"/>-->
-        <!--        <RunWithEmSdkEnv Command="npm version $(PackageVersion)"-->
-        <!--                         EmSdkPath="$(EMSDK_PATH)"-->
-        <!--                         WorkingDirectory="$(NativeBinDir)"/>-->
-        <!--        <Delete Files="$(MonoProjectRoot)wasm/runtime/node_modules/resolve/test/resolver/malformed_package_json/package.json"-->
-        <!--                ContinueOnError="true"/>-->
+        <Exec Command="npm install" WorkingDirectory="$(WasmAppDir)/"/>
+        <Exec Command="npm version $(BootsharpVersion)" WorkingDirectory="$(WasmAppDir)/"/>
+        <Exec Command="npm run build" WorkingDirectory="$(WasmAppDir)/"/>
     </Target>
 
 </Project>
