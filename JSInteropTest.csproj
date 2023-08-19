@@ -16,10 +16,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <WasmExtraFilesToDeploy Include="JS/package.json"/>
-        <WasmExtraFilesToDeploy Include="JS/index.html"/>
-        <WasmExtraFilesToDeploy Include="JS/main.js"/>
-        <WasmExtraFilesToDeploy Include="JS/bootsharp-main.js"/>
+        <WasmExtraFilesToDeploy Include="Frontend\package.json"/>
+        <WasmExtraFilesToDeploy Include="Frontend\index.html"/>
+        <WasmExtraFilesToDeploy Include="Frontend\main.js"/>
+        <WasmExtraFilesToDeploy Include="Frontend\bootsharp-main.js"/>
     </ItemGroup>
 
 </Project>
