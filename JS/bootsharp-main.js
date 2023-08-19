@@ -1,18 +1,23 @@
-import { dotnet } from "./dotnet.js";
+// noinspection JSFileReferences
 
-(async function () {
+import * as runtimeModule from "./_framework/dotnet.runtime.js";
+import * as nativeModule from "./_framework/dotnet.native.js";
+import { dotnet } from "./_framework/dotnet.js";
+
+export async function boot() {
+    /** @type {import("dotnet").MonoConfig & { assets: import("dotnet").AssetEntry[] }} */
     const config = {
         mainAssemblyName: "Test.dll",
         assets: [
             {
-                name: "dotnet.native.js",
-                buffer: await fetchBin("dotnet.native.js"),
-                behavior: "js-module-native"
+                name: "dotnet.runtime.js",
+                moduleExports: runtimeModule,
+                behavior: "js-module-runtime"
             },
             {
-                name: "dotnet.runtime.js",
-                buffer: await fetchBin("dotnet.runtime.js"),
-                behavior: "js-module-runtime"
+                name: "dotnet.native.js",
+                moduleExports: nativeModule,
+                behavior: "js-module-native"
             },
             {
                 name: "dotnet.native.wasm",
@@ -48,30 +53,31 @@ import { dotnet } from "./dotnet.js";
     };
 
     const runtime = await dotnet.withConfig(config).create();
+    console.log("Runtime created.")
 
-    // runtime.setModuleImports("moduleIdCanBeAnything", {
-    //     getStringAsync: async () => {
-    //         await new Promise(res => setTimeout(res, 100));
-    //         return "Hello from JS!";
-    //     },
-    //     OptionalSpace: {
-    //         getNumbers: () => [5, 2],
-    //         getNumberAtAsync: async (index) => {
-    //             await new Promise(res => setTimeout(res, 100));
-    //             return index;
-    //         }
-    //     }
-    // });
-    //
-    // await dotnet.run();
-    // const exports = await runtime.getAssemblyExports(config.mainAssemblyName);
-    //
-    // console.log(exports.Program.SumNumbers());
-    // console.log(await exports.Program.SumNumbersAsync(1, 9));
-    // console.log(await exports.Program.EchoAsync());
-})();
+    runtime.setModuleImports("moduleIdCanBeAnything", {
+        getStringAsync: async () => {
+            await new Promise(res => setTimeout(res, 100));
+            return "Hello from JS!";
+        },
+        OptionalSpace: {
+            getNumbers: () => [5, 2],
+            getNumberAtAsync: async (index) => {
+                await new Promise(res => setTimeout(res, 100));
+                return index;
+            }
+        }
+    });
+
+    await dotnet.run();
+    console.log("Runtime run.");
+
+    const exports = await runtime.getAssemblyExports(config.mainAssemblyName);
+    console.log("Got exports.");
+    return exports;
+}
 
 async function fetchBin(name) {
-    return new Uint8Array(await (await fetch(`./bin/${name}`)).arrayBuffer());
+    return new Uint8Array(await (await fetch(`./_framework/${name}`)).arrayBuffer());
 }
 

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
 using System.Runtime.Versioning;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Booted main in C#.");
 
 [SupportedOSPlatform("browser")]
 public static partial class Program
@@ -16,10 +16,7 @@ public static partial class Program
     public static partial Task<string?> GetStringAsync ();
 
     [JSExport]
-    public static int SumNumbers ()
-    {
-        return GetNumbers().Sum();
-    }
+    public static int SumNumbers () => GetNumbers().Sum();
 
     [JSExport]
     public static async Task<int> SumNumbersAsync (int startIndex, int endIndex)
@@ -31,8 +28,5 @@ public static partial class Program
     }
 
     [JSExport]
-    public static Task<string?> EchoAsync ()
-    {
-        return GetStringAsync();
-    }
+    public static Task<string?> EchoAsync () => GetStringAsync();
 }
