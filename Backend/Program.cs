@@ -16,10 +16,10 @@ public static partial class Program
     public static partial Task<string?> GetStringAsync ();
 
     [JSExport]
-    public static int SumNumbers () => GetNumbers().Sum();
+    private static int SumNumbers () => GetNumbers().Sum();
 
     [JSExport]
-    public static async Task<int> SumNumbersAsync (int startIndex, int endIndex)
+    private static async Task<int> SumNumbersAsync (int startIndex, int endIndex)
     {
         var sum = 0;
         for (int i = startIndex; i <= endIndex; i++)
@@ -28,5 +28,5 @@ public static partial class Program
     }
 
     [JSExport]
-    public static Task<string?> EchoAsync () => GetStringAsync();
+    private static Task<string?> EchoAsync () => GetStringAsync();
 }
