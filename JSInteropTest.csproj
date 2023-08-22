@@ -21,9 +21,9 @@
     </ItemGroup>
 
     <Target Name="BuildBootsharp" AfterTargets="_AfterWasmBuildApp">
-        <Exec Command="npm install" WorkingDirectory="$(WasmAppDir)/"/>
-        <Exec Command="npm version $(BootsharpVersion)" WorkingDirectory="$(WasmAppDir)/"/>
-        <Exec Command="npm run build" WorkingDirectory="$(WasmAppDir)/"/>
+        <Exec Command="npm install" WorkingDirectory="$(WasmAppDir)"/>
+        <Exec Command="npm version $(BootsharpVersion)" WorkingDirectory="$(WasmAppDir)"/>
+        <Exec Command="npm run build" WorkingDirectory="$(WasmAppDir)"/>
     </Target>
 
 </Project>
