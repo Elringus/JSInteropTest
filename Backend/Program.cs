@@ -5,13 +5,13 @@ Console.WriteLine("Booted main in C#.");
 public static partial class Program
 {
     [JSImport("OptionalSpace.getNumbers", "moduleIdCanBeAnything")]
-    public static partial int[] GetNumbers ();
+    private static partial int[] GetNumbers ();
 
     [JSImport("OptionalSpace.getNumberAtAsync", "moduleIdCanBeAnything")]
-    public static partial Task<int> GetNumberAtAsync (int index);
+    private static partial Task<int> GetNumberAtAsync (int index);
 
     [JSImport("getStringAsync", "moduleIdCanBeAnything")]
-    public static partial Task<string?> GetStringAsync ();
+    private static partial Task<string?> GetStringAsync ();
 
     [JSExport]
     private static int SumNumbers () => GetNumbers().Sum();
