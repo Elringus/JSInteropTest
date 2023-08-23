@@ -1,9 +1,7 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
-using System.Runtime.Versioning;
 
 Console.WriteLine("Booted main in C#.");
 
-[SupportedOSPlatform("browser")]
 public static partial class Program
 {
     [JSImport("OptionalSpace.getNumbers", "moduleIdCanBeAnything")]

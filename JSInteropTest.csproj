@@ -18,6 +18,9 @@
 
     <ItemGroup>
         <WasmExtraFilesToDeploy Include="Frontend/*"/>
+        <AssemblyAttribute Include="System.Runtime.Versioning.SupportedOSPlatform">
+            <_Parameter1>browser</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
 
     <Target Name="BuildBootsharp" AfterTargets="_AfterWasmBuildApp">
