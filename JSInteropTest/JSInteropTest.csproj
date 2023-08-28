@@ -33,6 +33,7 @@
         <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
         <InvariantGlobalization>true</InvariantGlobalization>
         <InvariantTimezone>true</InvariantTimezone>
+        <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
 
         <!--<RunAOTCompilation>true</RunAOTCompilation>-->
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
@@ -44,12 +45,12 @@
         <AssemblyAttribute Include="System.Runtime.Versioning.SupportedOSPlatform">
             <_Parameter1>browser</_Parameter1>
         </AssemblyAttribute>
+        <ProjectReference Include="../OtherAssembly/OtherAssembly/OtherAssembly.csproj"/>
     </ItemGroup>
 
     <Target Name="BuildBootsharp" AfterTargets="_AfterWasmBuildApp">
-        <Exec Command="npm config set fund false " WorkingDirectory="$(WasmAppDir)"/>
-        <Exec Command="npm install" WorkingDirectory="$(WasmAppDir)"/>
-        <Exec Command="npm run build" WorkingDirectory="$(WasmAppDir)"/>
+        <Exec Command="npm install --global rollup" WorkingDirectory="$(WasmAppDir)"/>
+        <Exec Command="rollup bootsharp-main.js -o bootsharp.js -f es -g process,module" WorkingDirectory="$(WasmAppDir)"/>
     </Target>
 
 </Project>

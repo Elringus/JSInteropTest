@@ -1,9 +1,13 @@
-﻿using System.Runtime.InteropServices.JavaScript;
+﻿using System.Reflection;
+using System.Runtime.InteropServices.JavaScript;
 
 Console.WriteLine("Booted main in C#.");
 
 public static partial class Program
 {
+    [JSImport("log", "moduleIdCanBeAnything")]
+    private static partial void Log (string msg);
+
     [JSImport("OptionalSpace.getNumbers", "moduleIdCanBeAnything")]
     private static partial int[] GetNumbers ();
 
@@ -27,4 +31,24 @@ public static partial class Program
 
     [JSExport]
     private static Task<string?> EchoAsync () => GetStringAsync();
+
+    [JSExport]
+    private static string GetMessageFromOtherAssembly ()
+    {
+        var assembly = Assembly.Load("OtherAssembly");
+        var @class = assembly.GetType("OtherAssembly.TestReflection")!;
+        var method = @class.GetMethod("GetMessage")!;
+        return (string)method.Invoke(null, null)!;
+    }
+
+    [JSExport]
+    private static string GetMessageFromMainAssembly ()
+    {
+        var assembly = Assembly.Load("JSInteropTest");
+        var @class = assembly.GetType("Program")!;
+        var method = @class.GetMethod("GetMessageFromThisAssembly")!;
+        return (string)method.Invoke(null, null)!;
+    }
+
+    public static partial string GetMessageFromThisAssembly ();
 }

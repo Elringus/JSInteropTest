@@ -45,6 +45,11 @@ export async function boot() {
                 behavior: "assembly"
             },
             {
+                name: "OtherAssembly.wasm",
+                buffer: await fetchBin("OtherAssembly.wasm"),
+                behavior: "assembly"
+            },
+            {
                 name: "JSInteropTest.wasm",
                 buffer: await fetchBin("JSInteropTest.wasm"),
                 behavior: "assembly"
@@ -56,6 +61,7 @@ export async function boot() {
     console.log("Runtime created.")
 
     runtime.setModuleImports("moduleIdCanBeAnything", {
+        log: (msg) => console.log(msg),
         getStringAsync: async () => {
             await new Promise(res => setTimeout(res, 100));
             return "Hello from JS!";
