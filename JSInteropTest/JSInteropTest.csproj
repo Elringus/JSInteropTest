@@ -49,8 +49,8 @@
     </ItemGroup>
 
     <Target Name="BuildBootsharp" AfterTargets="_AfterWasmBuildApp">
-        <Exec Command="npm install --global rollup" WorkingDirectory="$(WasmAppDir)"/>
-        <Exec Command="rollup bootsharp-main.js -o bootsharp.js -f es -g process,module" WorkingDirectory="$(WasmAppDir)"/>
+        <Exec Command="npx rollup bootsharp-main.js -o bootsharp.js -f es -g process,module"
+              WorkingDirectory="$(WasmAppDir)"/>
     </Target>
 
 </Project>
