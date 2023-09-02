@@ -57,7 +57,7 @@ export async function boot() {
         ]
     };
 
-    const runtime = await dotnet.withConfig(config).create();
+    const runtime = await dotnet.withExitCodeLogging().withConfig(config).create();
     console.log("Runtime created.")
 
     runtime.setModuleImports("moduleIdCanBeAnything", {
@@ -84,6 +84,7 @@ export async function boot() {
 }
 
 async function fetchBin(name) {
-    return new Uint8Array(await (await fetch(`./_framework/${name}`)).arrayBuffer());
+    if (typeof window === "object") return new Uint8Array(await (await fetch(`./_framework/${name}`)).arrayBuffer());
+    return new Uint8Array((await (await import('node:fs/promises')).readFile(`./_framework/${name}`)));
 }
 

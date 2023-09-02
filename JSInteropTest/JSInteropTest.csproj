@@ -35,7 +35,7 @@
         <InvariantTimezone>true</InvariantTimezone>
         <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
 
-        <!--<RunAOTCompilation>true</RunAOTCompilation>-->
+        <!-- <RunAOTCompilation>true</RunAOTCompilation> -->
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>bin/codegen</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
@@ -48,8 +48,8 @@
         <ProjectReference Include="../OtherAssembly/OtherAssembly/OtherAssembly.csproj"/>
     </ItemGroup>
 
-    <Target Name="BuildBootsharp" AfterTargets="_AfterWasmBuildApp">
-        <Exec Command="npx rollup bootsharp-main.js -o bootsharp.js -f es -g process,module"
+    <Target Name="Bundle" AfterTargets="_AfterWasmBuildApp">
+        <Exec Command="npx rollup boot.js -o boot.js -f es -g process,module -e node:fs/promises"
               WorkingDirectory="$(WasmAppDir)"/>
     </Target>
 
