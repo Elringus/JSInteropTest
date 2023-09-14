@@ -60,27 +60,10 @@ export async function boot() {
     const runtime = await dotnet.withExitCodeLogging().withConfig(config).create();
     console.log("Runtime created.")
 
-    runtime.setModuleImports("moduleIdCanBeAnything", {
-        log: (msg) => console.log(msg),
-        getStringAsync: async () => {
-            await new Promise(res => setTimeout(res, 100));
-            return "Hello from JS!";
-        },
-        OptionalSpace: {
-            getNumbers: () => [5, 2],
-            getNumberAtAsync: async (index) => {
-                await new Promise(res => setTimeout(res, 100));
-                return index;
-            }
-        }
-    });
-
     await dotnet.run();
     console.log("Runtime run.");
-
-    const exports = await runtime.getAssemblyExports(config.mainAssemblyName);
-    console.log("Got exports.");
-    return exports;
+    
+    return runtime;
 }
 
 async function fetchBin(name) {
