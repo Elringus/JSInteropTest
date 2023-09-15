@@ -7,20 +7,23 @@ import { boot } from "./boot.js"
     const exports = await runtime.getAssemblyExports("JSInteropTest");
     console.log("Got exports in main.js");
     
-    runtime.setModuleImports("moduleIdCanBeAnything", {
+    const bindings = {
         log: (msg) => console.log(msg),
         getStringAsync: async () => {
             await new Promise(res => setTimeout(res, 100));
             return "Hello from JS!";
         },
         OptionalSpace: {
-            getNumbers: () => [5, 2],
+            get getNumbers() { return this.$getNumbers; },
+            set getNumbers($getNumbers) { this.$getNumbers = () => $getNumbers(); },
             getNumberAtAsync: async (index) => {
                 await new Promise(res => setTimeout(res, 100));
                 return index;
             }
         }
-    });
+    };
+    runtime.setModuleImports("moduleIdCanBeAnything", bindings);
+    bindings.OptionalSpace.getNumbers = () => [5, 2];
     console.log("Set imports in main.js");
     
     console.log(exports.Program.GetMessageFromMainAssembly());
