@@ -10,14 +10,14 @@ public static partial class Program
     [JSImport("OptionalSpace.getNumbers", "moduleIdCanBeAnything")]
     private static partial int[] GetNumbers ();
 
-    [JSExport]
-    private static Task TestAsyncVoid () => Task.Delay(1);
-
     [JSImport("OptionalSpace.getNumberAtAsync", "moduleIdCanBeAnything")]
     private static partial Task<int> GetNumberAtAsync (int index);
 
     [JSImport("getStringAsync", "moduleIdCanBeAnything")]
     private static partial Task<string?> GetStringAsync ();
+
+    [JSExport]
+    private static Task TestAsyncVoid () => Task.Delay(1);
 
     [JSExport]
     private static int SumNumbers () => GetNumbers().Sum();
