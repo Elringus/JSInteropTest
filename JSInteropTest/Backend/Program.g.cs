@@ -8,5 +8,5 @@ public static partial class Program
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, "OtherAssembly.TestReflection", "OtherAssembly")]
     internal static void RegisterDynamicDependencies () { }
     
-    public static partial string GetMessageFromThisAssembly () => "Message from main assembly.";
+    // public static partial string GetMessageFromThisAssembly () => "Message from main assembly.";
 }

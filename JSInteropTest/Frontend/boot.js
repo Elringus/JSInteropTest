@@ -60,9 +60,9 @@ export async function boot() {
     const runtime = await dotnet.withExitCodeLogging().withConfig(config).create();
     console.log("Runtime created.")
 
-    await dotnet.run();
+    await runtime.runMain(config.mainAssemblyName, []);
     console.log("Runtime run.");
-    
+
     return runtime;
 }
 
