@@ -11,6 +11,7 @@
         <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>bin/codegen</CompilerGeneratedFilesOutputPath>
+        <WasmEnableThreads>true</WasmEnableThreads>
         <!-- <RunAOTCompilation>true</RunAOTCompilation> -->
     </PropertyGroup>
 
@@ -22,9 +23,9 @@
         <ProjectReference Include="../OtherAssembly/OtherAssembly/OtherAssembly.csproj"/>
     </ItemGroup>
 
-    <Target Name="Bundle" AfterTargets="_AfterWasmBuildApp">
-        <Exec Command="npx rollup boot.js -o boot.js -f es -g process,module -e node:fs/promises"
-              WorkingDirectory="$(WasmAppDir)"/>
-    </Target>
+<!--    <Target Name="Bundle" AfterTargets="_AfterWasmBuildApp">-->
+<!--        <Exec Command="npx rollup boot.js -o boot.js -f es -g process,module -e node:fs/promises"-->
+<!--              WorkingDirectory="$(WasmAppDir)"/>-->
+<!--    </Target>-->
 
 </Project>
