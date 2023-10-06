@@ -1,7 +1,7 @@
 // noinspection JSFileReferences
 
-import * as runtimeModule from "./_framework/dotnet.runtime.js";
-import * as nativeModule from "./_framework/dotnet.native.js";
+// import * as runtimeModule from "./_framework/dotnet.runtime.js";
+// import * as nativeModule from "./_framework/dotnet.native.js";
 import { dotnet } from "./_framework/dotnet.js";
 
 export async function boot() {
@@ -70,19 +70,19 @@ export async function boot() {
     const config = {
         mainAssemblyName: "JSInteropTest.dll",
         resources: {
-            jsModuleRuntime: { "dotnet.runtime.js": "" },
-            jsModuleNative: { "dotnet.native.js": "" },
-            jsModuleWorker: { "dotnet.native.worker.js": "" },
-            wasmNative: { "dotnet.native.wasm": "" },
-            wasmSymbols: { "dotnet.native.js.symbols": "" },
+            jsModuleRuntime: { "./bin/dotnet.runtime.js": "" },
+            jsModuleNative: { "./bin/dotnet.native.js": "" },
+            // jsModuleWorker: { "./bin/dotnet.native.worker.js": "" },
+            wasmNative: { "./bin/dotnet.native.wasm": "" },
+            // wasmSymbols: { "./bin/dotnet.native.js.symbols": "" },
             assembly: {
-                "System.Private.CoreLib.wasm": "",
-                "System.Runtime.InteropServices.JavaScript.wasm": "",
-                "System.Console.wasm": "",
-                "System.Linq.wasm": "",
-                "System.Threading.Channels.wasm": "",
-                "OtherAssembly.wasm": "",
-                "JSInteropTest.wasm": "",
+                "./bin/System.Private.CoreLib.wasm": "",
+                "./bin/System.Runtime.InteropServices.JavaScript.wasm": "",
+                "./bin/System.Console.wasm": "",
+                "./bin/System.Linq.wasm": "",
+                // "./bin/System.Threading.Channels.wasm": "",
+                "./bin/OtherAssembly.wasm": "",
+                "./bin/JSInteropTest.wasm": "",
             }
         }
     };
@@ -96,8 +96,8 @@ export async function boot() {
     return runtime;
 }
 
-async function fetchBin(name) {
-    if (typeof window === "object") return new Uint8Array(await (await fetch(`./_framework/${name}`)).arrayBuffer());
-    return new Uint8Array((await (await import('node:fs/promises')).readFile(`./_framework/${name}`)));
-}
+// async function fetchBin(name) {
+//     if (typeof window === "object") return new Uint8Array(await (await fetch(`./_framework/${name}`)).arrayBuffer());
+//     return new Uint8Array((await (await import('node:fs/promises')).readFile(`./_framework/${name}`)));
+// }
 

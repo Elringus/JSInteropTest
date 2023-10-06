@@ -11,7 +11,11 @@
         <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>bin/codegen</CompilerGeneratedFilesOutputPath>
-        <WasmEnableThreads>true</WasmEnableThreads>
+        <InvariantTimezone>true</InvariantTimezone>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <WasmGenerateAppBundle>true</WasmGenerateAppBundle>
+        <WasmEnableLegacyJsInterop>false</WasmEnableLegacyJsInterop>
+        <!-- <WasmEnableThreads>true</WasmEnableThreads>-->
         <!-- <RunAOTCompilation>true</RunAOTCompilation> -->
     </PropertyGroup>
 
@@ -23,9 +27,22 @@
         <ProjectReference Include="../OtherAssembly/OtherAssembly/OtherAssembly.csproj"/>
     </ItemGroup>
 
-<!--    <Target Name="Bundle" AfterTargets="_AfterWasmBuildApp">-->
-<!--        <Exec Command="npx rollup boot.js -o boot.js -f es -g process,module -e node:fs/promises"-->
-<!--              WorkingDirectory="$(WasmAppDir)"/>-->
-<!--    </Target>-->
+    <!--    <Target Name="Bundle" AfterTargets="_AfterWasmBuildApp">-->
+    <!--        <Exec Command="npx rollup boot.js -o boot.js -f es -g process,module -e node:fs/promises"-->
+    <!--              WorkingDirectory="$(WasmAppDir)"/>-->
+    <!--    </Target>-->
+
+    <Target Name="MoveBins" AfterTargets="_AfterWasmBuildApp">
+        <PropertyGroup>
+            <FrameworkDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)</FrameworkDir>
+            <BinsDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)/bin</BinsDir>
+        </PropertyGroup>
+        <ItemGroup>
+            <Modules Include="$(FrameworkDir)/dotnet.*.js"/>
+            <Bins Include="$(FrameworkDir)/*.wasm"/>
+        </ItemGroup>
+        <Move SourceFiles="@(Modules)" DestinationFolder="$(BinsDir)"/>
+        <Move SourceFiles="@(Bins)" DestinationFolder="$(BinsDir)"/>
+    </Target>
 
 </Project>
