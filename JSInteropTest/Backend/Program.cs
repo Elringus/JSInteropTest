@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
+using System.Text;
 
 Console.WriteLine("Booted main in C#.");
 
@@ -16,8 +17,20 @@ public static partial class Program
     [JSImport("getStringAsync", "moduleIdCanBeAnything")]
     private static partial Task<string?> GetStringAsync ();
 
+    [JSImport("getBytesAsync", "moduleIdCanBeAnything")]
+    [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
+    private static partial Task<byte[]> GetBytesAsync ();
+
     [JSExport]
     private static Task TestAsyncVoid () => Task.Delay(1);
+
+    [JSExport]
+    [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
+    private static async Task<byte[]> EchoBytesAsync ()
+    {
+        await Task.Delay(1);
+        return await GetBytesAsync();
+    }
 
     [JSExport]
     private static int SumNumbers () => GetNumbers().Sum();
@@ -30,6 +43,9 @@ public static partial class Program
             sum += await GetNumberAtAsync(i);
         return sum;
     }
+
+    [JSExport]
+    public static string BytesToString (byte[] bytes) => Encoding.UTF8.GetString(bytes);
 
     [JSExport]
     private static Task<string?> EchoAsync () => GetStringAsync();

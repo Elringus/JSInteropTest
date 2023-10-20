@@ -1,4 +1,4 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSInteropTest", "JSInteropTest\JSInteropTest.csproj", "{4F982C3D-B473-4FF4-97A7-D82951A84F20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherAssembly", "OtherAssembly\OtherAssembly\OtherAssembly.csproj", "{FA488CF5-8753-41A6-A9BA-012F035932BE}"

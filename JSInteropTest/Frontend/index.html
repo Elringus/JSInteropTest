@@ -2,7 +2,34 @@
 <html lang="en">
 <head>
     <title>JS Interop Test</title>
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
+    <style>
+        body { background: #333333; font-family: monospace }
+        .info { color: #cccccc; }
+        .warning { color: moccasin; }
+        .error { color: salmon; }
+    </style>
 </head>
-<body>check console</body>
+<body></body>
+<script>
+    console.log = msg => {
+        append(msg, "info");
+    }
+    console.warn = msg => {
+        console.warn(msg);
+        append(msg, "warning")
+    };
+    console.error = msg => {
+        console.error(msg);
+        append(msg, "error")
+    };
+
+    function append(msg, type) {
+        const div = document.createElement("div");
+        div.setAttribute("class", type);
+        div.textContent = msg;
+        document.body.appendChild(div);
+    }
+</script>
 <script type="module" src="main.js"></script>
 </html>

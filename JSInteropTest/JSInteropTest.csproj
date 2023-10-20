@@ -32,17 +32,17 @@
     <!--              WorkingDirectory="$(WasmAppDir)"/>-->
     <!--    </Target>-->
 
-    <Target Name="MoveBins" AfterTargets="_AfterWasmBuildApp">
-        <PropertyGroup>
-            <FrameworkDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)</FrameworkDir>
-            <BinsDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)/bin</BinsDir>
-        </PropertyGroup>
-        <ItemGroup>
-            <Modules Include="$(FrameworkDir)/dotnet.*.js"/>
-            <Bins Include="$(FrameworkDir)/*.wasm"/>
-        </ItemGroup>
-        <Move SourceFiles="@(Modules)" DestinationFolder="$(BinsDir)"/>
-        <Move SourceFiles="@(Bins)" DestinationFolder="$(BinsDir)"/>
-    </Target>
+<!--    <Target Name="MoveBins" AfterTargets="_AfterWasmBuildApp">-->
+<!--        <PropertyGroup>-->
+<!--            <FrameworkDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)</FrameworkDir>-->
+<!--            <BinsDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)/bin</BinsDir>-->
+<!--        </PropertyGroup>-->
+<!--        <ItemGroup>-->
+<!--            <Modules Include="$(FrameworkDir)/dotnet.*.js"/>-->
+<!--            <Bins Include="$(FrameworkDir)/*.wasm"/>-->
+<!--        </ItemGroup>-->
+<!--        <Move SourceFiles="@(Modules)" DestinationFolder="$(BinsDir)"/>-->
+<!--        <Move SourceFiles="@(Bins)" DestinationFolder="$(BinsDir)"/>-->
+<!--    </Target>-->
 
 </Project>

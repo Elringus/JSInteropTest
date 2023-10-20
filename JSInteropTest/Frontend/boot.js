@@ -93,15 +93,19 @@ export async function boot() {
         }
     };
 
-    const runtime = await dotnet.withConfig(config).withModuleConfig({
-        locateFile: (path, prefix) => {
-            // console.log(`locateFile(path: ${path} prefix: ${prefix})`)
-            return "/_framework/bin/" + path;
-        }
-    }).withResourceLoader((type, name, defaultUri, integrity, behavior) => {
-        // console.log(`withResourceLoader(type: ${type} name: ${name} defaultUri: ${defaultUri} behaviour: ${behavior})`)
-        return "/_framework/bin/" + name;
-    }).create();
+    const runtime = await dotnet
+        .withConfig(config)
+        // .withModuleConfig({
+        //     locateFile: (path, prefix) => {
+        //         // console.log(`locateFile(path: ${path} prefix: ${prefix})`)
+        //         return "/_framework/bin/" + path;
+        //     }
+        // })
+        // .withResourceLoader((type, name, defaultUri, integrity, behavior) => {
+        //     // console.log(`withResourceLoader(type: ${type} name: ${name} defaultUri: ${defaultUri} behaviour: ${behavior})`)
+        //     return "/_framework/bin/" + name;
+        // })
+        .create();
     console.log("Runtime created.")
 
     await runtime.runMain("JSInteropTest.dll", []);
