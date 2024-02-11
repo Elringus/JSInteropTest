@@ -15,7 +15,7 @@
         <InvariantGlobalization>true</InvariantGlobalization>
         <WasmGenerateAppBundle>true</WasmGenerateAppBundle>
         <WasmEnableLegacyJsInterop>false</WasmEnableLegacyJsInterop>
-        <WasmEnableThreads>true</WasmEnableThreads>
+        <!-- <WasmEnableThreads>true</WasmEnableThreads> -->
         <!-- <RunAOTCompilation>true</RunAOTCompilation> -->
     </PropertyGroup>
 

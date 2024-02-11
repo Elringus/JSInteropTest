@@ -40,7 +40,8 @@ import { boot } from "./boot.js"
 
     console.log(`Summed numbers async: ${await exports.Program.SumNumbersAsync(1, 9)}`);
     console.log(`Echoed string async: ${await exports.Program.EchoAsync()}`);
-    console.log(`Echoed bytes async: ${exports.Program.BytesToString(await exports.Program.EchoBytesAsync())}`);
+    // console.log(`Echoed bytes async: ${exports.Program.BytesToString(await exports.Program.EchoBytesAsync())}`);
+    exports.Program.ReceiveRecord(["foo", 1, true, "bar", 2, false, null]);
 
     console.log("Completed in main.js");
 })();

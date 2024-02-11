@@ -79,14 +79,14 @@ export async function boot() {
         resources: {
             jsModuleRuntime: { "dotnet.runtime.js": "" },
             jsModuleNative: { "dotnet.native.js": "" },
-            jsModuleWorker: { "dotnet.native.worker.js": "" },
+            // jsModuleWorker: { "dotnet.native.worker.js": "" },
             wasmNative: { "dotnet.native.wasm": "" },
             assembly: {
                 "System.Private.CoreLib.wasm": "",
                 "System.Runtime.InteropServices.JavaScript.wasm": "",
                 "System.Console.wasm": "",
                 "System.Linq.wasm": "",
-                "System.Threading.Channels.wasm": "",
+                // "System.Threading.Channels.wasm": "",
                 "OtherAssembly.wasm": "",
                 "JSInteropTest.wasm": "",
             }

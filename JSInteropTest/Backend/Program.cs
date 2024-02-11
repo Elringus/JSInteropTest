@@ -17,20 +17,20 @@ public static partial class Program
     [JSImport("getStringAsync", "moduleIdCanBeAnything")]
     private static partial Task<string?> GetStringAsync ();
 
-    [JSImport("getBytesAsync", "moduleIdCanBeAnything")]
-    [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
-    private static partial Task<byte[]> GetBytesAsync ();
+    // [JSImport("getBytesAsync", "moduleIdCanBeAnything")]
+    // [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
+    // private static partial Task<byte[]> GetBytesAsync ();
 
     [JSExport]
     private static Task TestAsyncVoid () => Task.Delay(1);
 
-    [JSExport]
-    [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
-    private static async Task<byte[]> EchoBytesAsync ()
-    {
-        await Task.Delay(1);
-        return await GetBytesAsync();
-    }
+    // [JSExport]
+    // [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
+    // private static async Task<byte[]> EchoBytesAsync ()
+    // {
+    //     await Task.Delay(1);
+    //     return await GetBytesAsync();
+    // }
 
     [JSExport]
     private static int SumNumbers () => GetNumbers().Sum();
@@ -49,6 +49,20 @@ public static partial class Program
 
     [JSExport]
     private static Task<string?> EchoAsync () => GetStringAsync();
+
+    [JSExport]
+    private static void ReceiveRecord ([JSMarshalAs<JSType.Array<JSType.Any>>] object?[] raw)
+    {
+        var record = Unmarshal(raw);
+        Console.WriteLine($"Record({record.Str}, {record.Int}, {record.Bool}, Record({record.Other?.Str}, {record.Other?.Int}, {record.Other?.Bool}))");
+
+        static Record Unmarshal (object?[] raw) => new(
+            (string)raw[0]!,
+            (int)(double)raw[1]!,
+            (bool)raw[2]!,
+            raw[3] != null ? Unmarshal(raw[3..7]) : null
+        );
+    }
 
     // [JSExport]
     // private static string GetMessageFromOtherAssembly ()
@@ -70,3 +84,5 @@ public static partial class Program
 
     // public static partial string GetMessageFromThisAssembly ();
 }
+
+public record Record (string Str, int Int, bool Bool, Record? Other);
