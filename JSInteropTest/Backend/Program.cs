@@ -64,6 +64,48 @@ public static partial class Program
         );
     }
 
+    // [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    // private static object GetRecord () // doesn't work
+    // {
+    //     return new Record("foo", 6, true, null);
+    // }
+
+    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static async Task<object> GetArrayAsync ()
+    {
+        await Task.Delay(1);
+        return new[] { "foo", "bar", "baz" };
+    }
+
+    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static async Task<object> GetListAsync () // doesn't work, only arrays supported
+    {
+        await Task.Delay(1);
+        return new List<string> { "foo", "bar", "baz" };
+    }
+
+    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static async Task<object> GetDictionaryAsync () // doesn't work, only arrays supported
+    {
+        await Task.Delay(1);
+        return new Dictionary<string, string> { ["foo"] = "bar", ["baz"] = "nya" };
+    }
+
+    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static async Task<object> GetCollectionExpressionAsync () // doesn't work, only arrays supported
+    {
+        IReadOnlyList<string> list = ["foo", "bar", "baz"];
+        await Task.Delay(1);
+        return list;
+    }
+
+    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static async Task<object> GetRecordAsync () // doesn't work
+    {
+        await Task.Delay(1);
+        return new Record("foo", 7, true, new Record("bar", 8, false, null));
+    }
+
     // [JSExport]
     // private static string GetMessageFromOtherAssembly ()
     // {
