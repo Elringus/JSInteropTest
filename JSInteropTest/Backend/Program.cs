@@ -64,11 +64,18 @@ public static partial class Program
         );
     }
 
-    // [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
-    // private static object GetRecord () // doesn't work
-    // {
-    //     return new Record("foo", 6, true, null);
-    // }
+    [JSExport] [return: JSMarshalAs<JSType.Array<JSType.Any>>]
+    private static object?[] GetRecord ()
+    {
+        return new object?[] { "foo", 5, true, new object?[] { "bar", 6, false, null } };
+    }
+
+    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static async Task<object> GetRecordAsync ()
+    {
+        await Task.Delay(1);
+        return new object?[] { "foo", 7, true, new object?[] { "bar", 8, false, null } };
+    }
 
     [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
     private static async Task<object> GetArrayAsync ()
@@ -97,13 +104,6 @@ public static partial class Program
         IReadOnlyList<string> list = ["foo", "bar", "baz"];
         await Task.Delay(1);
         return list;
-    }
-
-    [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
-    private static async Task<object> GetRecordAsync () // doesn't work
-    {
-        await Task.Delay(1);
-        return new Record("foo", 7, true, new Record("bar", 8, false, null));
     }
 
     // [JSExport]

@@ -42,12 +42,12 @@ import { boot } from "./boot.js"
     console.log(`Echoed string async: ${await exports.Program.EchoAsync()}`);
     // console.log(`Echoed bytes async: ${exports.Program.BytesToString(await exports.Program.EchoBytesAsync())}`);
     exports.Program.ReceiveRecord(["foo", 1, true, "bar", 2, false, null]);
-    // console.log(`Got record: ${JSON.stringify(await exports.Program.GetRecord())}`);
+    console.log(`Got record: ${JSON.stringify(exports.Program.GetRecord())}`);
+    console.log(`Got record async: ${JSON.stringify(await exports.Program.GetRecordAsync())}`);
     console.log(`Got array via object nested in task: ${JSON.stringify(await exports.Program.GetArrayAsync())}`);
     console.log(`Got list via object nested in task: ${JSON.stringify(await exports.Program.GetListAsync())}`);
     console.log(`Got dictionary via object nested in task: ${JSON.stringify(await exports.Program.GetDictionaryAsync())}`);
     console.log(`Got collection expression via object nested in task: ${JSON.stringify(await exports.Program.GetCollectionExpressionAsync())}`);
-    console.log(`Got record via object nested in task: ${JSON.stringify(await exports.Program.GetRecordAsync())}`);
 
     console.log("Completed in main.js");
 })();
