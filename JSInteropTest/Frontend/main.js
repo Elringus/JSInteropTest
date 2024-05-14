@@ -48,6 +48,7 @@ import { boot } from "./boot.js"
     console.log(`Got list via object nested in task: ${JSON.stringify(await exports.Program.GetListAsync())}`);
     console.log(`Got dictionary via object nested in task: ${JSON.stringify(await exports.Program.GetDictionaryAsync())}`);
     console.log(`Got collection expression via object nested in task: ${JSON.stringify(await exports.Program.GetCollectionExpressionAsync())}`);
+    console.log(`Got inline array: ${JSON.stringify(exports.Program.GetInlineArray())}`);
 
     console.log("Completed in main.js");
 })();

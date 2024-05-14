@@ -106,6 +106,16 @@ public static partial class Program
         return list;
     }
 
+    [JSExport] [return: JSMarshalAs<JSType.Any>]
+    private static object GetInlineArray () // doesn't work, inline arrays are not supported
+    {
+        var arr = new InlineArray();
+        arr[0] = "foo";
+        arr[1] = "bar";
+        arr[2] = "baz";
+        return arr;
+    }
+
     // [JSExport]
     // private static string GetMessageFromOtherAssembly ()
     // {
@@ -128,3 +138,9 @@ public static partial class Program
 }
 
 public record Record (string Str, int Int, bool Bool, Record? Other);
+
+[System.Runtime.CompilerServices.InlineArray(3)]
+public struct InlineArray
+{
+    private string _element0;
+}
