@@ -51,9 +51,9 @@ public static partial class Program
     private static Task<string?> EchoAsync () => GetStringAsync();
 
     [JSExport]
-    private static void ReceiveRecord ([JSMarshalAs<JSType.Array<JSType.Any>>] object?[] raw)
+    private static void ReceiveRecord ([JSMarshalAs<JSType.Any>] object raw)
     {
-        var record = Unmarshal(raw);
+        var record = Unmarshal((object?[])raw);
         Console.WriteLine($"Record({record.Str}, {record.Int}, {record.Bool}, Record({record.Other?.Str}, {record.Other?.Int}, {record.Other?.Bool}))");
 
         static Record Unmarshal (object?[] raw) => new(
@@ -64,8 +64,8 @@ public static partial class Program
         );
     }
 
-    [JSExport] [return: JSMarshalAs<JSType.Array<JSType.Any>>]
-    private static object?[] GetRecord ()
+    [JSExport] [return: JSMarshalAs<JSType.Any>]
+    private static object GetRecord ()
     {
         return new object?[] { "foo", 5, true, new object?[] { "bar", 6, false, null } };
     }
