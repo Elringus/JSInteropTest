@@ -17,12 +17,22 @@ public static partial class Program
     [JSImport("getStringAsync", "moduleIdCanBeAnything")]
     private static partial Task<string?> GetStringAsync ();
 
+    [JSImport("importArrayAsync", "moduleIdCanBeAnything")] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
+    private static partial Task<object> ImportArrayAsync ();
+
     // [JSImport("getBytesAsync", "moduleIdCanBeAnything")]
     // [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]
     // private static partial Task<byte[]> GetBytesAsync ();
 
     [JSExport]
     private static Task TestAsyncVoid () => Task.Delay(1);
+
+    [JSExport]
+    private static async Task TestImportArrayAsync ()
+    {
+        var arr = (byte[])await ImportArrayAsync();
+        Console.WriteLine($"Imported array async: {string.Join(", ", arr)}");
+    }
 
     // [JSExport]
     // [return: JSMarshalAs<JSType.Promise<JSType.Array<JSType.Number>>>]

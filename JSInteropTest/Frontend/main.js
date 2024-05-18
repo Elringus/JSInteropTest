@@ -20,6 +20,10 @@ import { boot } from "./boot.js"
             0x2e, 0x20, 0x4e, 0x6f, 0x74, 0x20, 0x74, 0x6f, 0x20,
             0x66, 0x72, 0x65, 0x74, 0x2e
         ]),
+        importArrayAsync: async () => {
+            await new Promise(res => setTimeout(res, 100));
+            return new Uint8Array([0x45, 0x76, 0x65]);
+        },
         OptionalSpace: {
             get getNumbers() { return this.$getNumbers; },
             set getNumbers($getNumbers) { this.$getNumbers = () => $getNumbers(); },
@@ -36,7 +40,10 @@ import { boot } from "./boot.js"
     console.log(`Summed numbers: ${exports.Program.SumNumbers()}`);
 
     await exports.Program.TestAsyncVoid();
-    console.log("Waited for async void.")
+    console.log("Waited for async void.");
+
+    await exports.Program.TestImportArrayAsync();
+    console.log("Waited for async array import.");
 
     console.log(`Summed numbers async: ${await exports.Program.SumNumbersAsync(1, 9)}`);
     console.log(`Echoed string async: ${await exports.Program.EchoAsync()}`);
