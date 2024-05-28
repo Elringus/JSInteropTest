@@ -28,6 +28,9 @@ public static partial class Program
     private static Task TestAsyncVoid () => Task.Delay(1);
 
     [JSExport]
+    private static double EchoDouble (double d) => d;
+
+    [JSExport]
     private static async Task TestImportArrayAsync ()
     {
         var arr = (byte[])await ImportArrayAsync();
@@ -64,27 +67,28 @@ public static partial class Program
     private static void ReceiveRecord ([JSMarshalAs<JSType.Any>] object raw)
     {
         var record = Unmarshal((object?[])raw);
-        Console.WriteLine($"Record({record.Str}, {record.Int}, {record.Bool}, Record({record.Other?.Str}, {record.Other?.Int}, {record.Other?.Bool}))");
+        Console.WriteLine($"Record({record.Str}, {record.Int}, {record.Bool}, {record.Double}, Record({record.Other?.Str}, {record.Other?.Int}, {record.Other?.Bool}, {record.Other?.Double}))");
 
         static Record Unmarshal (object?[] raw) => new(
             (string)raw[0]!,
             (int)(double)raw[1]!,
             (bool)raw[2]!,
-            raw[3] != null ? Unmarshal(raw[3..7]) : null
+            (double)raw[3]!,
+            raw[4] != null ? Unmarshal(raw[4..]) : null
         );
     }
 
     [JSExport] [return: JSMarshalAs<JSType.Any>]
     private static object GetRecord ()
     {
-        return new object?[] { "foo", 5, true, new object?[] { "bar", 6, false, null } };
+        return new object?[] { "foo", 5, true, 20.005, new object?[] { "bar", 6, false, 15.9, null } };
     }
 
     [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
     private static async Task<object> GetRecordAsync ()
     {
         await Task.Delay(1);
-        return new object?[] { "foo", 7, true, new object?[] { "bar", 8, false, null } };
+        return new object?[] { "foo", 7, true, 20.005, new object?[] { "bar", 8, false, 15.9, null } };
     }
 
     [JSExport] [return: JSMarshalAs<JSType.Promise<JSType.Any>>]
@@ -147,7 +151,7 @@ public static partial class Program
     // public static partial string GetMessageFromThisAssembly ();
 }
 
-public record Record (string Str, int Int, bool Bool, Record? Other);
+public record Record (string Str, int Int, bool Bool, double Double, Record? Other);
 
 [System.Runtime.CompilerServices.InlineArray(3)]
 public struct InlineArray

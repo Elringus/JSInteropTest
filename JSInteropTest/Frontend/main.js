@@ -47,8 +47,9 @@ import { boot } from "./boot.js"
 
     console.log(`Summed numbers async: ${await exports.Program.SumNumbersAsync(1, 9)}`);
     console.log(`Echoed string async: ${await exports.Program.EchoAsync()}`);
+    console.log(`Echoed double: ${exports.Program.EchoDouble(20.00001)}`);
     // console.log(`Echoed bytes async: ${exports.Program.BytesToString(await exports.Program.EchoBytesAsync())}`);
-    exports.Program.ReceiveRecord(["foo", 1, true, "bar", 2, false, null]);
+    exports.Program.ReceiveRecord(["foo", 1, true, 20.005, "bar", 2, false, 15.9, null]);
     console.log(`Got record: ${JSON.stringify(exports.Program.GetRecord())}`);
     console.log(`Got record async: ${JSON.stringify(await exports.Program.GetRecordAsync())}`);
     console.log(`Got array via object nested in task: ${JSON.stringify(await exports.Program.GetArrayAsync())}`);
