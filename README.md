@@ -12,7 +12,7 @@
 4. Run `dotnet publish`
 
 # Browser
-1. Run `serve` under `AppBundle` dir
+1. Run `npx serve` under `AppBundle` dir
 2. Open the served index page in browser
 
 # Node

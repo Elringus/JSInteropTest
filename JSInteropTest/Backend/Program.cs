@@ -1,5 +1,7 @@
-﻿using System.Runtime.InteropServices.JavaScript;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text;
+using JSInteropTest.Backend;
 
 Console.WriteLine("Booted main in C#.");
 
@@ -28,7 +30,18 @@ public static partial class Program
     private static Task TestAsyncVoid () => Task.Delay(1);
 
     [JSExport]
+    private static Task<string?> EchoAsync () => GetStringAsync();
+
+    [JSExport]
     private static double EchoDouble (double d) => d;
+
+    [JSExport]
+    private static string EchoJson (string json)
+    {
+        var record = Serializer.Deserialize<Record>(json);
+        record = record with { Str = $"{record.Str}~Echoed" };
+        return Serializer.Serialize(record);
+    }
 
     [JSExport]
     private static async Task TestImportArrayAsync ()
@@ -59,9 +72,6 @@ public static partial class Program
 
     [JSExport]
     public static string BytesToString (byte[] bytes) => Encoding.UTF8.GetString(bytes);
-
-    [JSExport]
-    private static Task<string?> EchoAsync () => GetStringAsync();
 
     [JSExport]
     private static void ReceiveRecord ([JSMarshalAs<JSType.Any>] object raw)
@@ -153,7 +163,7 @@ public static partial class Program
 
 public record Record (string Str, int Int, bool Bool, double Double, Record? Other);
 
-[System.Runtime.CompilerServices.InlineArray(3)]
+[InlineArray(3)]
 public struct InlineArray
 {
     private string _element0;

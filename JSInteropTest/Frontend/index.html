@@ -16,11 +16,9 @@
         append(msg, "info");
     }
     console.warn = msg => {
-        console.warn(msg);
         append(msg, "warning")
     };
     console.error = msg => {
-        console.error(msg);
         append(msg, "error")
     };
 

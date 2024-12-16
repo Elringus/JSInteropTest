@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <LangVersion>preview</LangVersion>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Configuration>Release</Configuration>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -11,12 +10,44 @@
         <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>bin/codegen</CompilerGeneratedFilesOutputPath>
-        <InvariantTimezone>true</InvariantTimezone>
-        <InvariantGlobalization>true</InvariantGlobalization>
         <WasmGenerateAppBundle>true</WasmGenerateAppBundle>
         <WasmEnableLegacyJsInterop>false</WasmEnableLegacyJsInterop>
         <!-- <WasmEnableThreads>true</WasmEnableThreads> -->
         <!-- <RunAOTCompilation>true</RunAOTCompilation> -->
+
+        <!-- Trimming -->
+        <!-- https://learn.microsoft.com/en-us/aspnet/core/blazor/performance?#minimize-app-download-size -->
+        <!-- https://raw.githubusercontent.com/dotnet/runtime/main/docs/workflow/trimming/feature-switches.md -->
+        <!-- https://github.com/dotnet/runtime/issues/94805 -->
+        <PublishTrimmed>true</PublishTrimmed>
+        <TrimMode>full</TrimMode>
+        <InvariantTimezone>true</InvariantTimezone>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+        <_AggressiveAttributeTrimming>true</_AggressiveAttributeTrimming>
+        <AutoreleasePoolSupport>false</AutoreleasePoolSupport>
+        <DebuggerSupport>false</DebuggerSupport>
+        <EnableCppCLIHostActivation>false</EnableCppCLIHostActivation>
+        <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+        <EnableUnsafeBinaryFormatterInDesigntimeLicenseContextSerialization>false</EnableUnsafeBinaryFormatterInDesigntimeLicenseContextSerialization>
+        <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+        <_EnableConsumingManagedCodeFromNativeHosting>false</_EnableConsumingManagedCodeFromNativeHosting>
+        <EventSourceSupport>false</EventSourceSupport>
+        <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+        <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+        <UseNativeHttpHandler>true</UseNativeHttpHandler>
+        <UseSystemResourceKeys>true</UseSystemResourceKeys>
+        <StartupHookSupport>false</StartupHookSupport>
+        <CustomResourceTypesSupport>false</CustomResourceTypesSupport>
+        <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+        <WasmEmitSourceMap>false</WasmEmitSourceMap>
+        <WasmNativeDebugSymbols>false</WasmNativeDebugSymbols>
+        <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+        <PredefinedCulturesOnly>true</PredefinedCulturesOnly>
+        <MetricsSupport>false</MetricsSupport>
+        <DisableDependencyInjectionDynamicEngine>true</DisableDependencyInjectionDynamicEngine>
+        <NullabilityInfoContextSupport>false</NullabilityInfoContextSupport>
+        <DynamicCodeSupport>false</DynamicCodeSupport>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,7 +55,7 @@
         <AssemblyAttribute Include="System.Runtime.Versioning.SupportedOSPlatform">
             <_Parameter1>browser</_Parameter1>
         </AssemblyAttribute>
-        <ProjectReference Include="../OtherAssembly/OtherAssembly/OtherAssembly.csproj"/>
+        <ProjectReference Include="../OtherAssembly/OtherAssembly.csproj"/>
     </ItemGroup>
 
     <!--    <Target Name="Bundle" AfterTargets="_AfterWasmBuildApp">-->
@@ -32,17 +63,17 @@
     <!--              WorkingDirectory="$(WasmAppDir)"/>-->
     <!--    </Target>-->
 
-<!--    <Target Name="MoveBins" AfterTargets="_AfterWasmBuildApp">-->
-<!--        <PropertyGroup>-->
-<!--            <FrameworkDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)</FrameworkDir>-->
-<!--            <BinsDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)/bin</BinsDir>-->
-<!--        </PropertyGroup>-->
-<!--        <ItemGroup>-->
-<!--            <Modules Include="$(FrameworkDir)/dotnet.*.js"/>-->
-<!--            <Bins Include="$(FrameworkDir)/*.wasm"/>-->
-<!--        </ItemGroup>-->
-<!--        <Move SourceFiles="@(Modules)" DestinationFolder="$(BinsDir)"/>-->
-<!--        <Move SourceFiles="@(Bins)" DestinationFolder="$(BinsDir)"/>-->
-<!--    </Target>-->
+    <!--    <Target Name="MoveBins" AfterTargets="_AfterWasmBuildApp">-->
+    <!--        <PropertyGroup>-->
+    <!--            <FrameworkDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)</FrameworkDir>-->
+    <!--            <BinsDir>$(WasmAppDir)/$(WasmRuntimeAssetsLocation)/bin</BinsDir>-->
+    <!--        </PropertyGroup>-->
+    <!--        <ItemGroup>-->
+    <!--            <Modules Include="$(FrameworkDir)/dotnet.*.js"/>-->
+    <!--            <Bins Include="$(FrameworkDir)/*.wasm"/>-->
+    <!--        </ItemGroup>-->
+    <!--        <Move SourceFiles="@(Modules)" DestinationFolder="$(BinsDir)"/>-->
+    <!--        <Move SourceFiles="@(Bins)" DestinationFolder="$(BinsDir)"/>-->
+    <!--    </Target>-->
 
 </Project>

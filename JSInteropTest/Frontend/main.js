@@ -49,6 +49,7 @@ import { boot } from "./boot.js"
     console.log(`Echoed string async: ${await exports.Program.EchoAsync()}`);
     console.log(`Echoed double: ${exports.Program.EchoDouble(20.00001)}`);
     // console.log(`Echoed bytes async: ${exports.Program.BytesToString(await exports.Program.EchoBytesAsync())}`);
+    console.log(`Echoed JSON: ${exports.Program.EchoJson(JSON.stringify({ str: "Foo", int: 7, bool: true, double: 7.7, other: null }))}`);
     exports.Program.ReceiveRecord(["foo", 1, true, 20.005, "bar", 2, false, 15.9, null]);
     console.log(`Got record: ${JSON.stringify(exports.Program.GetRecord())}`);
     console.log(`Got record async: ${JSON.stringify(await exports.Program.GetRecordAsync())}`);
